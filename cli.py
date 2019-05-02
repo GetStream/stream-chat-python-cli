@@ -1,11 +1,20 @@
+import pickle
 import click
 import json
 import uuid
 import sys
+import os
 
 from stream_chat import StreamChat
 
-chat = StreamChat(api_key="t45frc6vsuea", api_secret="5drawr26n42qq2bhmedj83f4kkvjha4mer49q9aydryat46gmp66bawx44zu5vk7")
+if os.path.isfile(".credentials"):
+    fd = open(".credentials", "rb")
+    data = pickle.load(fd)
+
+    chat = StreamChat(api_key=data["api_key"], api_secret=data["api_secret"])
+else:
+    click.echo("Credentials not found. Please run init --api_key=<API_KEY> --api_secret=<API_SECRET> to regenerate your credentials.")
+    sys.exit()
 
 __author__ = "Nick Parsons"
 
@@ -15,6 +24,28 @@ def main():
     Stream Chat CLI built with Python
     """
     pass
+
+@main.command()
+@click.option("--api_key", required=True, help="Your Stream API Key.")
+@click.option("--api_secret", required=True, help="Your Stream API Secret.")
+def init(api_key, api_secret):
+    """This argument stores your Stream credentials locally"""
+    fw = open(".credentials", "wb")
+    pickle.dump({ "api_key": api_key, "api_secret": api_secret }, fw)
+    fw.close()
+
+    click.echo("Your credentials file has been generated.")
+
+@main.command()
+def load():
+    """This argument displays your Stream credentials"""
+    if os.path.isfile(".credentials"):
+        fd = open(".credentials", "rb")
+        data = pickle.load(fd)
+
+        click.echo(json.dumps(data, indent=4))
+    else:
+        click.echo("Credentials not found. Please run init --api_key=<API_KEY> --api_secret=<API_SECRET> to regenerate your credentials.")
 
 @main.command()
 @click.option("--user_id", required=True, help="The unique identifier for the user.")
