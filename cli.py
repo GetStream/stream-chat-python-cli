@@ -6,8 +6,6 @@ from stream_chat import StreamChat
 
 chat = StreamChat(api_key="t45frc6vsuea", api_secret="5drawr26n42qq2bhmedj83f4kkvjha4mer49q9aydryat46gmp66bawx44zu5vk7")
 
-channel_types = ["livestream", "messaging", "gaming", "commerce", "team"]
-
 __author__ = "Nick Parsons"
 
 @click.group()
