@@ -1,7 +1,6 @@
 certifi==2019.3.9
 chardet==3.0.4
 Click==7.0
-colorama==0.4.1
 idna==2.8
 pycryptodomex==3.4.7
 PyJWT==1.7.1
