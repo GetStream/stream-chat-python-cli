@@ -187,10 +187,6 @@ def update_channel(client, channel_type, channel_name, json):
 @click.pass_obj
 def delete_channel(client, channel_type, channel_name):
     """This argument deletes an existing channel"""
-    if channel_type not in channel_types:
-        click.echo("Invalid channel type!")
-        sys.exit()
-
     channel = client.channel(channel_type, channel_name)
     response = channel.delete()
     click.echo(json.dumps(response, indent=4))
