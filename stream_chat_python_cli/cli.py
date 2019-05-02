@@ -82,7 +82,7 @@ def devices(client, user_id):
 @main.command()
 @click.option(
     "--user_id",
-    default=uuid.uuid4(),
+    default=str(uuid.uuid4()),
     required=False,
     help="The unique identifier for the user.",
 )
