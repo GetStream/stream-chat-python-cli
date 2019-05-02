@@ -1,4 +1,5 @@
 import click
+import json
 import uuid
 import sys
 
@@ -21,14 +22,14 @@ def token(user_id):
     """This argument generates a token for a user"""
     response = chat.create_token(user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
-def app_settings():
+def settings():
     """This argument gets app settings"""
     response = chat.get_app_settings()
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -36,7 +37,7 @@ def channels(channel_type):
     """This argument gets channels with a provided channel type"""
     response = chat.get_channel_types(channel_type)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--user_id", required=True, help="The unique identifier for the user.")
@@ -44,7 +45,7 @@ def devices(user_id):
     """This argument gets a users devices"""
     response = chat.get_devices()
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--user_id", default=uuid.uuid4(), required=False, help="The unique identifier for the user.")
@@ -53,7 +54,7 @@ def add_user(user_id, user_name):
     """This argument adds a new user"""
     response = chat.update_user({ "id": user_id, name: user_name })
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--user_id", required=True, help="The unique identifier for the user.")
@@ -61,7 +62,7 @@ def delete_user(user_id):
     """This argument deletes a user"""
     response = chat.delete_user(user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--user_id", required=True, help="The unique identifier for the user.")
@@ -69,7 +70,7 @@ def export_user(user_id):
     """This argument exports a user"""
     response = chat.export_user(user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--user_id", required=True, help="The unique identifier for the user.")
@@ -77,7 +78,7 @@ def deactivate_user(user_id):
     """This argument deactivates a user"""
     response = chat.deactivate_user(user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--user_id", default=uuid.uuid4(), required=False, help="The unique identifier for the user.")
@@ -87,7 +88,7 @@ def ban_user(user_id, timeout, reason):
     """This argument bans an existing user"""
     response = chat.ban_user(user_id, timeout, reason)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--user_id", required=True, help="The unique identifier for the user.")
@@ -95,7 +96,7 @@ def unban_user(user_id):
     """This argument unbans a user"""
     response = chat.unban_user(user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -106,7 +107,7 @@ def create_channel(channel_type, channel_name, user_id):
     channel = chat.channel(channel_type, channel_name)
     response = channel.create(user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -117,7 +118,7 @@ def update_channel(channel_type, channel_name, json):
     channel = chat.channel(channel_type, channel_name)
     response = channel.update(json)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -131,7 +132,7 @@ def delete_channel(channel_type, channel_name):
     channel = chat.channel(channel_type, channel_name)
     response = channel.delete()
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -143,7 +144,7 @@ def send_message(channel_type, channel_name, user_id, text):
     channel = chat.channel(channel_type, channel_name)
     response = channel.send_message({ "text": text }, user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--message_id", required=True, help="The unique identifier for the message.")
@@ -159,7 +160,7 @@ def update_message(message_id, user_id, text):
         },
     })
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--message_id", required=True, help="The unique identifier for the message.")
@@ -167,7 +168,7 @@ def delete_message(message_id):
     """This argument deletes a message"""
     response = chat.delete_message(message_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -180,7 +181,7 @@ def get_replies(channel_type, channel_name, message_id, limit, offset):
     channel = chat.channel(channel_type, channel_name)
     response = channel.get_replies(message_id, limit=limit, offset=offset)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -192,7 +193,7 @@ def send_event(channel_type, channel_name, event_type, user_id):
     channel = chat.channel(channel_type, channel_name)
     response = channel.send_event({ "type": event_type }, user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -205,7 +206,7 @@ def send_reaction(channel_type, channel_name, message_id, reaction_type, user_id
     channel = chat.channel(channel_type, channel_name)
     response = channel.send_reaction(message_id, { "type": reaction_type }, user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -218,7 +219,7 @@ def get_reactions(channel_type, channel_name, message_id, limit, offset):
     channel = chat.channel(channel_type, channel_name)
     response = channel.get_reactions(message_id, limit=limit, offset=offset)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -231,7 +232,7 @@ def delete_reaction(channel_type, channel_name, message_id, reaction_type, user_
     channel = chat.channel(channel_type, channel_name)
     response = channel.delete_reaction(message_id, { "type": reaction_type }, user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -242,7 +243,7 @@ def mark_read(channel_type, channel_name, user_id):
     channel = chat.channel(channel_type, channel_name)
     response = channel.mark_read(user_id)
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -252,7 +253,7 @@ def truncate_channel(channel_type, channel_name):
     channel = chat.channel(channel_type, channel_name)
     response = channel.truncate()
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -263,7 +264,7 @@ def add_member(channel_type, channel_name, user_id):
     channel = chat.channel(channel_type, channel_name)
     response = channel.add_members([user_id])
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -274,7 +275,7 @@ def remove_member(channel_type, channel_name, message_id, user_id):
     channel = chat.channel(channel_type, channel_name)
     response = channel.remove_members([user_id])
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -285,7 +286,7 @@ def add_moderator(channel_type, channel_name, user_id):
     channel = chat.channel(channel_type, channel_name)
     response = channel.add_moderators([user_id])
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 @main.command()
 @click.option("--channel_type", required=True, help="The type of the channel.")
@@ -296,7 +297,7 @@ def remove_moderator(channel_type, channel_name, user_id):
     channel = chat.channel(channel_type, channel_name)
     response = channel.add_moderators([user_id])
 
-    click.echo(response)
+    click.echo(json.dumps(response, indent=4))
 
 if __name__ == "__main__":
     main()
