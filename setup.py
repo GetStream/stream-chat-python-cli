@@ -10,7 +10,7 @@ install_requires = [
     "requests==2.21.0",
     "six==1.12.0",
     "stream-chat==0.2.0",
-    "urllib3==1.24.2",
+    "urllib3==1.26.5",
     "uuid==1.30",
 ]
 long_description = open("README.md", "r").read()
