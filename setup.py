@@ -1,7 +1,7 @@
 from setuptools import setup
 
 install_requires = [
-    "certifi==2019.3.9",
+    "certifi==2022.12.7",
     "chardet==3.0.4",
     "Click==7.0",
     "idna==2.8",
