@@ -7,7 +7,7 @@ install_requires = [
     "idna==2.8",
     "pycryptodomex==3.4.7",
     "PyJWT==1.7.1",
-    "requests==2.21.0",
+    "requests==2.33.0",
     "six==1.12.0",
     "stream-chat==0.2.0",
     "urllib3==1.24.2",
