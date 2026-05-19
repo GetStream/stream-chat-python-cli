@@ -4,7 +4,7 @@ install_requires = [
     "certifi==2019.3.9",
     "chardet==3.0.4",
     "Click==7.0",
-    "idna==2.8",
+    "idna==3.15",
     "pycryptodomex==3.4.7",
     "PyJWT==1.7.1",
     "requests==2.21.0",
